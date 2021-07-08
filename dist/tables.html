@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <title>WaitList</title>
+</head>
+<body>
+    <!-- Start Jumbotron -->
+    <div class="container">
+        <div class="jumbotron bg-info text-white">
+          <h1>
+              <span class="fa solid fa-fire"></span> Hot Restaurant Express
+          </h1>
+          <h3>Current Reservations and Waiting List</h3>
+          <hr />
+          <a href="">
+            <button class="btn btn-warning btn-lg">
+              <span class="fa solid fa-list"></span> View Tables
+            </button>
+          </a>
+          <a href="">
+            <button class="btn btn-success btn-lg">
+              <span class="fa fa-home"></span>
+              </span> Home
+            </button>
+          </a>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- current tables in use -->
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Current Reservations</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul id="tableList" class="list-group">
+                        </ul>
+                    </div>
+                </div>
+                <!-- waitingt list card -->
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h4>Waiting List</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul id="waitList" class="list-group">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="footber mt-4">
+            <div class="container">
+                <p>Control Panel</p>
+                <p>
+                    <a href="#" id="clear">Clear Table</a>
+                    |
+                    <a href="/api/table">API Table Link</a>
+                    |
+                    <a href="/api/waitlist">APi Wait List</a>
+                </p>
+            </div>
+        </footer>
