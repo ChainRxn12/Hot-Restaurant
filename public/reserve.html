@@ -17,12 +17,12 @@
           </h1>
           <h3>Make Your Reservation!</h3>
           <hr />
-          <a href="">
+          <a href="/tables">
             <button class="btn btn-primary btn-lg">
               <span class="fa solid fa-list"></span> View Tables
             </button>
           </a>
-          <a href="">
+          <a href="/">
             <button class="btn btn-success btn-lg">
               <span class="fa fa-home"></span>
               </span> Home
@@ -74,46 +74,49 @@
 
         
 <script type="text/javascript">
-     $(".submit").on("click", function(event) {
-    event.preventDefault();
+    // this code 'posts' our form data
 
-    // Here we grab the form elements
-    var newReservation = {
-      customerName: $("#reserve-name").val().trim(),
-      phoneNumber: $("#reserve-phone").val().trim(),
-      customerEmail: $("#reserve-email").val().trim(),
-      customerID: $("#reserve-unique-id").val().trim()
-    };
+    const submitBtn = document.getElementById('submit');
+    submitBtn.addEventListener('click', (e) => {
+        e.preventDefault();
 
-    console.log(newReservation);
+        // grab form elements
+        let newReservation = {
+            customerName: document.getElementById('reserve-name').value.trim(),
+            phoneNumber: document.getElementById('reserve-phone').value.trim(),
+            customerEmail: document.getElementById('reserve-email').value.trim(),
+            customerId: document.getElementById('reserve-unique-id').value.trim(),
+        };
 
-    // This line is the magic. It"s very similar to the standard ajax function we used.
-    // Essentially we give it a URL, we give it the object we want to send, then we have a "callback".
-    // The callback is the response of the server. In our case, we set up code in api-routes that "returns" true or false
-    // depending on if a tables is available or not.
+        console.log('submitBtn.onlick -> newReservation', newReservation);
 
-    $.post("/api/tables", newReservation,
-      function(data) {
+        fetch('/api/tables', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newReservation),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if(data) {
+                    // if table is available... tell user they are booked
+                    alert('Your table is booked!');
+                } else {
+                    // tell them they are on the waitlist...
+                    alert('Sorry you are on the waitlist');
 
-        // If a table is available... tell user they are booked.
-        if (data) {
-          alert("Yay! You are officially booked!");
-        }
-
-        // If a table is available... tell user they on the waiting list.
-        else {
-          alert("Sorry you are on the wait list");
-        }
-
-        // Clear the form when submitting
-        $("#reserve-name").val("");
-        $("#reserve-phone").val("");
-        $("#reserve-email").val("");
-        $("#reserve-unique-id").val("");
-
-      });
-
-  });
+                    // clear data form
+                    document.getElementById('reserve-name').value = '';
+                    document.getElementById('reserve-phone').value = '';
+                    document.getElementById('reserve-email').value = '';
+                    document.getElementById('reserve-unique-id').value = '';
+                }
+        })
+            .catch((error) => {
+                console.error('Error:' , error)
+            });
+    });
                     
 </script>
 
